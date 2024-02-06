@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Alpine JS</title>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js" defer></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+</head>
+
+
+<body x-data="todos()" :class="{ 'light-theme': isLightTheme }">
+<nav>
+    <div class="nav-links">
+        <ul>
+            <li><a href="todo.html" data-after="LCK">Todo List</a></li>
+            <button @click="toggleTheme" class="toggle-theme">🌑 / ☀️</button>
+        </ul>
+    </div>
+</nav>
+<div class="container" x-bind:class="{ 'light-theme': isLightTheme }">
+    <h1>To-Do List</h1>
+    <div>
+        <input type="text" x-model="newTodo" @keydown.enter="addTodo" placeholder="Ajouter une tâche">
+        <button @click="addTodo">Ajouter</button>
+    </div>
+    <ul>
+        <template x-for="(todo, index) in todos" :key="index">
+            <li>
+                <input type="checkbox" x-model="todo.completed" @click="toggleTodo(index)">
+                <span class="todo-text" x-text="todo.text"></span>
+                <button class="delete" @click="removeTodo(index)">Supprimer</button>
+            </li>
+        </template>
+    </ul>
+</div>
+</body>
+
+</html>
